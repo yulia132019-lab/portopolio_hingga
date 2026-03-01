@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0b1220">
+  <title>Portfolio Hingga Irgantara</title>
+
+  <!-- Bootstrap & Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <style>
+    :root{
+      --bg:#0b1220;        /* very dark blue/black */
+      --panel:#0f1724;     /* dark panel */
+      --muted:#9aa7bf;     /* muted text */
+      --accent:#0ea5e9;    /* bright blue accent */
+      --glass: rgba(255,255,255,0.03);
+      --max-width:1200px;
+    }
+
+    /* Light theme vars (toggled via .light on html) */
+    html.light{
+      --bg:#f8fafc;
+      --panel:#ffffff;
+      --muted:#334155;
+      --accent:#0ea5e9;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;background:var(--bg);color:var(--muted);font-family:Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;scroll-behavior:smooth}
+    a{transition:color .15s}
+
+    /* NAVBAR */
+    .nav-dark{background:linear-gradient(90deg, rgba(8,30,50,0.9), rgba(2,8,18,0.95));backdrop-filter: blur(6px);}
+    .nav-dark a{color: #dbeafe}
+    .nav-dark .navbar-brand{font-weight:700;color:#e6f5ff}
+    .nav-link{color:var(--muted) !important}
+
+    /* HERO */
+    .hero{height:88vh;min-height:520px;display:flex;align-items:center;justify-content:center;position:relative;text-align:center;padding:2rem;overflow:hidden}
+    .hero::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg, rgba(6,12,23,0.18), rgba(3,6,10,0.6));pointer-events:none}
+    .hero-inner{position:relative;z-index:2;max-width:var(--max-width)}
+    .profile-circle{width:170px;height:170px;border-radius:50%;overflow:hidden;border:5px solid rgba(14,165,233,0.12);box-shadow:0 10px 30px rgba(2,6,23,0.6);margin:0 auto}
+    .profile-circle img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .8s ease}
+    .profile-circle:hover img{transform:scale(1.04)}
+    .hero h1{color:#e6f5ff;font-size:2.4rem;margin-top:1rem;letter-spacing:.4px}
+    .hero p.lead{color:var(--muted);font-size:1rem;margin-bottom:1rem;max-width:700px;margin-left:auto;margin-right:auto}
+
+    /* animated underline */
+    .hero h1::after{content:'';display:block;height:4px;width:80px;margin:12px auto 0;border-radius:999px;background:linear-gradient(90deg,var(--accent),#60a5fa);opacity:.95;transform:scaleX(0);transform-origin:left;animation:underline .9s ease .3s forwards}
+    @keyframes underline{to{transform:scaleX(1)}}
+
+    .social-icons a{display:inline-block;margin:0 .45rem;color:var(--muted);font-size:1.2rem;padding:.45rem;border-radius:8px}
+    .social-icons a:hover{color:var(--accent);background:rgba(14,165,233,0.06)}
+
+    .btn-custom{background:linear-gradient(90deg,var(--accent),#60a5fa);color:#03233a;border:none}
+    .btn-outline-custom{border-color:rgba(255,255,255,0.06);color:var(--muted)}
+
+    /* CONTENT CONTAINER */
+    .content{max-width:var(--max-width);margin:-70px auto 80px;padding:0 1rem}
+
+    /* PANELS */
+    .panel{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.03);padding:1.4rem;border-radius:14px;color:var(--muted)}
+    html.light .panel{background:var(--panel);border:1px solid rgba(2,6,23,0.04)}
+    .panel h3{color:#e6f5ff;margin-bottom:.6rem}
+    html.light .panel h3{color:#0b1220}
+
+    /* ACHIEVEMENTS */
+    .ach-grid{display:flex;gap:12px;flex-wrap:wrap}
+    .ach-card{flex:1 1 140px;padding:14px;border-radius:12px;background:linear-gradient(180deg, rgba(14,165,233,0.06), rgba(14,165,233,0.03));border:1px solid rgba(14,165,233,0.08);text-align:center;min-width:120px}
+    .ach-card h4{margin:6px 0;color:#e6f5ff}
+    .ach-card small{display:block;color:var(--muted);font-size:.85rem}
+
+    /* TIMELINE */
+    .timeline{position:relative;padding-left:36px}
+    .timeline::before{content:'';position:absolute;left:10px;top:12px;width:4px;height:calc(100% - 24px);background:linear-gradient(180deg,var(--accent), rgba(14,165,233,0.3));border-radius:4px}
+    .timeline-item{position:relative;padding:14px 18px 14px 36px;margin-bottom:14px}
+    .timeline-item .dot{position:absolute;left:-2px;top:18px;width:14px;height:14px;border-radius:50%;background:var(--bg);border:3px solid var(--accent);box-shadow:0 6px 18px rgba(14,165,233,0.06)}
+    .timeline-item time{display:block;color:var(--accent);font-weight:700;margin-bottom:6px}
+
+    /* SKILL BARS */
+    .skill{margin-bottom:12px}
+    .skill .track{background:rgba(255,255,255,0.03);height:12px;border-radius:999px;overflow:hidden}
+    .skill .fill{height:12px;border-radius:999px;background:linear-gradient(90deg,var(--accent),#60a5fa);width:0%;transition:width 1s ease}
+    .skill small{float:right;color:var(--muted);font-weight:600}
+
+    /* PROJECT CARDS */
+    .project{border-radius:12px;overflow:hidden;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.03)}
+    .project img{width:100%;height:150px;object-fit:cover}
+    .project .body{padding:12px}
+
+    /* GALLERY */
+    .gallery img{width:100%;height:110px;object-fit:cover;border-radius:8px;transition:transform .28s, box-shadow .28s}
+    .gallery img:hover{transform:translateY(-6px) scale(1.03);box-shadow:0 18px 36px rgba(2,6,23,0.5);cursor:pointer}
+
+    /* LIGHTBOX */
+    .lightbox{position:fixed;inset:0;background:rgba(2,6,23,0.85);display:flex;align-items:center;justify-content:center;z-index:2000;padding:16px;visibility:hidden;opacity:0;transition:.22s}
+    .lightbox.show{visibility:visible;opacity:1}
+    .lightbox img{max-width:96%;max-height:86%;border-radius:8px}
+
+    /* TESTIMONIAL */
+    .testimonial{background:linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0.01));border-left:4px solid rgba(14,165,233,0.14);padding:1rem;border-radius:10px}
+
+    /* FOOTER */
+    footer{color:var(--muted);padding:2rem 0;text-align:center}
+    .neon{border-top:1px solid rgba(14,165,233,0.08);padding-top:18px}
+
+    /* THEME SWITCH */
+    .theme-toggle{position:fixed;right:14px;bottom:14px;z-index:1000}
+
+    /* RESPONSIVE TWEAKS */
+    @media (max-width:992px){
+      .content{margin:-40px auto 60px}
+      .hero{height:78vh;padding:1.5rem}
+      .profile-circle{width:150px;height:150px}
+      .hero h1{font-size:2rem}
+    }
+    @media (max-width:576px){
+      .hero{height:auto;padding:2.2rem 1rem 3rem}
+      .hero-inner{padding-top:6px;padding-bottom:6px}
+      .profile-circle{width:120px;height:120px}
+      .hero h1{font-size:1.45rem}
+      .hero p.lead{font-size:.95rem;padding:0 6px}
+      .panel{padding:1rem}
+      .project img{height:120px}
+      .gallery img{height:90px}
+      .ach-grid{gap:8px}
+      .ach-card{padding:12px}
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-expand-lg nav-dark sticky-top">
+    <div class="container">
+      <a class="navbar-brand" href="#home">Hingga Irgantara</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+        <span class="navbar-toggler-icon"><i class="fa fa-bars" style="color:#cfeeff"></i></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navMenu">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="#profil">Profil</a></li>
+          <li class="nav-item"><a class="nav-link" href="#pengalaman">Pengalaman</a></li>
+          <li class="nav-item"><a class="nav-link" href="#keterampilan">Keterampilan</a></li>
+          <li class="nav-item"><a class="nav-link" href="#portfolio">Portfolio</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero" id="home">
+    <div class="hero-inner">
+      <div class="profile-circle mb-3"><img src="foto.jpg" alt="Foto Hingga"></div>
+      <h1>Hingga Irgantara</h1>
+      <p class="lead">Sales Executive • Sales & Marketing Specialist</p>
+
+      <div class="social-icons mb-3">
+        <a href="mailto:hinggairgantara301@gmail.com" title="Email"><i class="fa-solid fa-envelope"></i></a>
+        <a href="https://instagram.com/hingga_irgantara" target="_blank" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        <a href="https://wa.me/6281368996886" target="_blank" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+        <a href="#portfolio" class="ms-1 btn btn-sm btn-outline-custom">Lihat portfolio</a>
+      </div>
+
+      <div class="cta-group mt-2">
+        <a href="#contact" class="btn btn-custom me-2 btn-sm">Contact</a>
+        <a href="#pengalaman" class="btn btn-outline-custom btn-sm">Pengalaman</a>
+      </div>
+    </div>
+
+    <!-- subtle animated svg decor -->
+    <svg style="position:absolute;right:6%;top:6%;opacity:.05;width:260px;transform:rotate(18deg);pointer-events:none" viewBox="0 0 200 200" aria-hidden="true">
+      <path fill="rgba(14,165,233,0.08)" d="M43.6,-54.4C57.7,-46.6,71.7,-36.3,76.9,-22.3C82.1,-8.3,78.5,9.1,70.4,24.9C62.2,40.7,49.6,55,33.8,60.6C18,66.3,-1,63.2,-19.6,56.5C-38.2,49.7,-56.4,39.3,-64.9,23.8C-73.4,8.3,-72.3,-13.4,-62.6,-29.8C-52.9,-46.2,-34.6,-57.2,-15.8,-62.2C3,-67.2,22.8,-66.3,43.6,-54.4Z" transform="translate(100 100)"/>
+    </svg>
+  </header>
+
+  <!-- THEME TOGGLE -->
+  <div class="theme-toggle">
+    <button id="themeBtn" class="btn btn-sm btn-outline-light" aria-label="Toggle theme"><i class="fa fa-moon"></i></button>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <main class="content">
+    <div class="row g-4">
+      <div class="col-lg-7">
+
+        <!-- PROFILE -->
+        <section id="profil" class="panel mb-3">
+          <h3>Profil Singkat</h3>
+          <p><strong>Nama:</strong> Hingga Irgantara &nbsp; • &nbsp; <strong>TTL:</strong> Lubuklinggau, 15 Juli 1996</p>
+          <p><strong>Status:</strong> Menikah • <strong>Alamat:</strong> JL. SPMA No.58, Lubuklinggau</p>
+          <p><strong>Email:</strong> <a href="mailto:hinggairgantara301@gmail.com" style="color:var(--accent)">hinggairgantara301@gmail.com</a> • <strong>Tel:</strong> <a href="tel:+6281368996886" style="color:var(--accent)">081368996886</a></p>
+        </section>
+
+        <!-- ACHIEVEMENTS -->
+        <section class="panel mb-3" aria-labelledby="achievements-heading">
+          <h3 id="achievements-heading">Pencapaian</h3>
+          <div class="ach-grid">
+            <div class="ach-card"><small>Penjualan Bulanan Tertinggi</small><h4>Rp 120.000.000</h4><small>Q3 2024</small></div>
+            <div class="ach-card"><small>Outlet Dikelola</small><h4>48</h4><small>Zona Sumatera</small></div>
+            <div class="ach-card"><small>Target Tercapai</small><h4>97%</h4><small>Rata-rata 12 bulan</small></div>
+            <div class="ach-card"><small>TOEFL</small><h4>503</h4><small>2019</small></div>
+          </div>
+        </section>
+
+        <!-- TIMELINE PENGALAMAN -->
+        <section id="pengalaman" class="panel mb-3">
+          <h3>Pengalaman Kerja</h3>
+          <div class="timeline" aria-hidden="false">
+            <div class="timeline-item">
+              <span class="dot" aria-hidden="true"></span>
+              <time>Juli 2020 — September 2025</time>
+              <h5 style="color:#e6f5ff">PT Surya Madistrindo</h5>
+              <p>Salesmen Consumer — meningkatkan penjualan produk, mengelola relasi channel distribusi, serta mencapai target penjualan bulanan. Alasan berhenti: efisiensi perusahaan (pensiun dini).</p>
+              <div class="timeline-item">
+                <span class="dot"></span>
+
+                <time>2014 — 2017</time>
+                <h5 style="color:#e6f5ff">PT Ris Investindo Sarana</h5>
+                <p>
+                  Sales & Distribution Support — berperan dalam distribusi produk PT Semen Padang,
+                  membangun hubungan dengan toko dan mitra proyek, melakukan monitoring stok,
+                  serta membantu pencapaian target penjualan di wilayah distribusi.
+                  Pengalaman ini membentuk kemampuan komunikasi, negosiasi, dan pemahaman
+                  alur distribusi produk.
+                </p>
+              </div>
+              <div class="timeline-item">
+  <span class="dot"></span>
+  <time>2018</time>
+  <h5 style="color:#e6f5ff">PT Pertamina (Persero)</h5>
+  <p>
+    Kuliah Kerja Praktek Lapangan (KKPL) — ditempatkan di Terminal Bahan Bakar Minyak
+    (TBBM) Lubuklinggau. Terlibat dalam pengamatan operasional distribusi BBM,
+    administrasi dasar, serta penerapan prosedur keselamatan kerja (K3)
+    di lingkungan industri migas.
+  </p>
+</div>
+
+            </div>
+          </div>
+        </section>
+
+        <!-- KETERAMPILAN -->
+        <section id="keterampilan" class="panel mb-3">
+          <h3>Keterampilan & Kemampuan</h3>
+          <div class="skill">
+            <div class="d-flex justify-content-between"><strong>Public Speaking</strong><small>85%</small></div>
+            <div class="track mt-2"><div class="fill" data-fill="85%"></div></div>
+          </div>
+          <div class="skill">
+            <div class="d-flex justify-content-between"><strong>Sales & Marketing</strong><small>92%</small></div>
+            <div class="track mt-2"><div class="fill" data-fill="92%"></div></div>
+          </div>
+          <div class="skill">
+            <div class="d-flex justify-content-between"><strong>Microsoft Office & CorelDraw</strong><small>88%</small></div>
+            <div class="track mt-2"><div class="fill" data-fill="88%"></div></div>
+          </div>
+          <div class="skill">
+            <div class="d-flex justify-content-between"><strong>Problem Solving</strong><small>80%</small></div>
+            <div class="track mt-2"><div class="fill" data-fill="80%"></div></div>
+          </div>
+        </section>
+
+        <!-- ABOUT / MOTIVATION -->
+        <section id="about" class="panel mb-3">
+          <h3>Tentang Saya</h3>
+          <p>Saya berharap dapat terus menghidupi keluarga dan menjadi manusia yang bermanfaat. Prinsip saya: selalu bekerja jujur, disiplin, dan membantu rekan kerja. Saya mudah beradaptasi, memiliki sopan santun yang baik, serta mampu membangun relasi dengan pelanggan. Ambisi saya adalah terus berkembang secara profesional dan membawa kontribusi nyata pada perusahaan tempat saya bekerja.</p>
+        </section>
+
+      </div>
+
+      <div class="col-lg-5">
+
+        <!-- EDUCATION & CERTS -->
+        <aside class="panel">
+          <h3>Pendidikan & Sertifikat</h3>
+          <ul>
+            <li>S1 Universitas Musi Rawas — Ekonomi (Akuntansi), 2019</li>
+            <li>SMAN 6 Lubuklinggau — IPA, 2014</li>
+            <li>SDN 42 Lubuklinggau; SMPN YPBI 11</li>
+          </ul>
+
+          <h5 class="mt-3">Pelatihan</h5>
+          <ul>
+            <li>Pelatihan Mengemudi — Pemerintah Kab. Musi Rawas (2014)</li>
+            <li>PowerPoint, Excel, CorelDraw — Sarana Sukses Utama (2015)</li>
+            <li>TOEFL — Skor 503 (2019)</li>
+          </ul>
+
+          <hr style="border-color:rgba(255,255,255,0.03)">
+
+          <h5>Quick Facts</h5>
+          <p>Minat kerja: <strong style="color:var(--accent)">Sales / Marketing</strong></p>
+          <p>Hobi: Basket, Futsal, Gym, Memancing</p>
+        </aside>
+
+        <!-- PROJECT CARDS -->
+        <aside class="panel mt-4" id="portfolio">
+          <h3>Project & Case Study</h3>
+          <div class="row g-3">
+            <div class="col-12 col-md-6">
+              <div class="project">
+                <img src="work1.jpg" alt="project">
+                <div class="body">
+                  <h5>Event Activation - Distributor</h5>
+                  <p style="font-size:.9rem;color:var(--muted)">Mengorganisir team activation dan promosi produk di 15 outlet utama.</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-md-6">
+              <div class="project">
+                <img src="work2.jpg" alt="project">
+                <div class="body">
+                  <h5>Sales Campaign - Q2</h5>
+                  <p style="font-size:.9rem;color:var(--muted)">Mengatur strategi diskon & packaging untuk meningkatkan penjualan di area target.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- GALLERY -->
+          <h5 class="mt-3">Gallery</h5>
+          <div class="row g-2 gallery">
+            <div class="col-6"><img src="work1.jpg" alt="project 1" onclick="openLight(this.src)"></div>
+            <div class="col-6"><img src="work2.jpg" alt="project 2" onclick="openLight(this.src)"></div>
+            <div class="col-6"><img src="work3.jpg" alt="project 3" onclick="openLight(this.src)"></div>
+            <div class="col-6"><img src="work4.jpg" alt="project 4" onclick="openLight(this.src)"></div>
+          </div>
+        </aside>
+
+        <!-- TESTIMONIAL -->
+        <aside class="panel mt-4">
+          <h3>Rekomendasi & Kontak Referensi</h3>
+          <div class="testimonial">
+            <p>\"Hingga selalu menunjukkan etos kerja tinggi dan mampu mencapai target penjualan. Ia sangat berkontribusi dalam membangun hubungan baik dengan distributor.\"</p>
+            <p style="font-weight:700;color:var(--accent);">— Imam Mahdi Pamungkas, Mantan Atasan</p>
+            <p style="font-size:0.9rem;color:var(--muted)">Kontak: 082373937796</p>
+          </div>
+        </aside>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- CONTACT -->
+  <section class="content" id="contact">
+    <div class="panel">
+      <h3>Hubungi Saya</h3>
+      <p>Silakan hubungi melalui:</p>
+      <p>
+        <a href="mailto:hinggairgantara301@gmail.com" class="me-3" style="color:var(--accent)"><i class="fa-solid fa-envelope"></i> Email</a>
+        <a href="https://wa.me/6281368996886" class="me-3" style="color:var(--accent)"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+        <a href="https://instagram.com/hingga_irgantara" style="color:var(--accent)"><i class="fa-brands fa-instagram"></i> Instagram</a>
+      </p>
+      <p>Download CV: <a href="cv.pdf" style="color:var(--accent)">Klik di sini</a></p>
+    </div>
+  </section>
+
+  <footer class="neon">
+    <div class="container"><small>© 2025 Hingga Irgantara • All rights reserved</small></div>
+  </footer>
+
+  <!-- LIGHTBOX -->
+  <div id="lightbox" class="lightbox" onclick="closeLight(event)"><img src="" alt="light" id="lightboxImg"></div>
+
+  <!-- SCRIPTS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // animate skill bars when visible
+    function animateSkills(){
+      document.querySelectorAll('.fill').forEach(el=>{
+        const val = el.getAttribute('data-fill')||'0%';
+        el.style.width = val;
+      })
+    }
+
+    // lightbox functions
+    function openLight(src){
+      const lb = document.getElementById('lightbox');
+      document.getElementById('lightboxImg').src = src;
+      lb.classList.add('show');
+    }
+    function closeLight(e){
+      // close when clicking backdrop or image
+      if(e.target.id==='lightbox' || e.target.id==='lightboxImg'){
+        document.getElementById('lightbox').classList.remove('show');
+      }
+    }
+
+    // theme toggle
+    const themeBtn = document.getElementById('themeBtn');
+    function setTheme(dark){
+      document.documentElement.classList.toggle('light',!dark);
+      localStorage.setItem('themeDark', dark? '1' : '0');
+      themeBtn.innerHTML = dark? '<i class="fa fa-moon"></i>' : '<i class="fa fa-sun"></i>';
+    }
+    themeBtn.addEventListener('click', ()=>{
+      const dark = localStorage.getItem('themeDark')!=='0';
+      setTheme(!dark);
+    });
+    // init theme
+    (function(){
+      const dark = localStorage.getItem('themeDark')!=='0';
+      setTheme(dark);
+    })();
+
+    // scroll trigger for skills
+    let fired=false;
+    function tryAnimate(){
+      const el = document.getElementById('keterampilan');
+      if(!el) return;
+      const rect = el.getBoundingClientRect();
+      if(!fired && rect.top < window.innerHeight-80){
+        animateSkills(); fired=true;
+      }
+    }
+    window.addEventListener('scroll', tryAnimate);
+    window.addEventListener('resize', tryAnimate);
+    window.addEventListener('load', ()=>{ setTimeout(tryAnimate,350) });
+
+    // smooth nav highlight (optional small enhancement)
+    document.querySelectorAll('.navbar .nav-link').forEach(link=>{
+      link.addEventListener('click', (e)=>{
+        // collapse navbar when click on mobile
+        const nav = document.querySelector('.navbar-collapse');
+        if(nav && nav.classList.contains('show')){
+          new bootstrap.Collapse(nav).toggle();
+        }
+      });
+    });
+
+    // Accessibility: keyboard close for lightbox (Esc)
+    document.addEventListener('keydown', (e)=>{
+      if(e.key==='Escape'){
+        document.getElementById('lightbox').classList.remove('show');
+      }
+    });
+  </script>
+</body>
+</html>
